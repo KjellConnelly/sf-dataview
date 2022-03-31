@@ -67,3 +67,45 @@ export default function SearchInput({onChange, onKeyDown, disabled}) {
     </Search>
   )
 }
+
+/*
+async function sharepointChangeDirNames(oldDirectory = "Tradewinds Documents", newDirectory = "Pacific Sage Partners Documents") {
+  // paste contents into browser first on sharepoint site.
+  // https://cdn.jsdelivr.net/npm/sharepointplus/browser/sharepointplus.js
+  try {
+    let documentsList = $SP().list("Documents")
+    let resp = await documentsList.get({
+      json:true,
+      folderOptions:{
+        path:"",
+        show:"FilesAndFolders_Recursive"
+      }
+    })
+    resp=resp.filter(item=>item.ContentType=="Folder")
+    console.log(`${resp.filter(item=>item.FileLeafRef.toUpperCase().includes("TRADEWINDS")).length} case insensitive TRADEWINDS folders`)
+    resp = resp.filter(item=>item.FileLeafRef.includes(oldDirectory))
+    console.log(`${resp.length} case sensitive to change`)
+
+    let updateResponse = await $SP().list("Documents").update(resp.map(item=>{
+      return {
+        ID:item.ID,
+        Title:newDirectory,
+        FileLeafRef:item.FileLeafRef.replace(oldDirectory, newDirectory),
+        FileRef:item.FileRef.replace(oldDirectory, newDirectory),
+        BaseName:newDirectory,
+        EncodedAbsUrl:item.EncodedAbsUrl.replace(encodeURIComponent(oldDirectory), encodeURIComponent(newDirectory)),
+        LinkFilename: newDirectory,
+        LinkFilename2: newDirectory,
+        LinkFilenameNoMenu: newDirectory,
+        ServerUrl:item.ServerUrl.replace(oldDirectory, newDirectory),
+        _EditMenuTableStart:newDirectory,
+      }
+    }))
+
+    console.log(updateResponse)
+  } catch(err) {
+    console.error(err)
+  }
+}
+sharepointChangeDirNames()
+*/
